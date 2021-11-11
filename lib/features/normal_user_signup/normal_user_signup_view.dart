@@ -3,17 +3,22 @@ import 'package:stacked/stacked.dart';
 
 import '../../core/shared_widgets/auth_large_button.dart';
 import '../../core/util/app_colors.dart';
-import '../../core/util/app_text_field.dart';
+import '../../core/shared_widgets/app_text_field.dart';
 import '../../core/util/app_text_styles.dart';
 import 'view_model/normal_user_signup_viewmodel.dart';
 
 class NormalUserSignupView extends StatelessWidget {
   final int index;
-  const NormalUserSignupView({Key key, this.index}) : super(key: key);
+  final PageController pageController;
+  const NormalUserSignupView({Key key, this.index, this.pageController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<NormalUserSignupViewModel>.reactive(
+      onDispose: () {
+        pageController.dispose();
+      },
       viewModelBuilder: () => NormalUserSignupViewModel(),
       builder: (context, model, child) {
         return Container(
@@ -112,7 +117,10 @@ class NormalUserSignupView extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 34, right: 34),
                 child: AuthLargeButton(
                   onTap: () {
-                    model.showInfoDialog();
+                    pageController.nextPage(
+                      duration: Duration(seconds: 3),
+                      curve: Curves.bounceOut,
+                    );
                   },
                 ),
               )

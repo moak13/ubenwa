@@ -1,19 +1,38 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-// import 'package:stacked_services/stacked_services.dart';
-import 'package:ubenwa/core/util/router.gr.dart';
+import 'package:stacked/stacked.dart';
+
+import '../normal_user_login/normal_user_login_view.dart';
+import '../normal_user_signup/normal_user_signup_view.dart';
+import 'view_model/auth_normal_user_viewmodel.dart';
 
 class AuthNormalUserView extends StatelessWidget {
-  const AuthNormalUserView({Key key}) : super(key: key);
+  final int index;
+  AuthNormalUserView({Key key, this.index}) : super(key: key);
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ExtendedNavigator<Auth_viewRouter>(
-        router: Auth_viewRouter(),
-        initialRoute: AuthNormalUserViewRoutes.normal_user_signup_view,
-        // navigatorKey: StackedService.navigatorKey,
-      ),
+    return ViewModelBuilder<AuthNormalUserViewModel>.reactive(
+      onDispose: () {
+        _pageController.dispose();
+      },
+      builder: (context, model, child) {
+        return PageView(
+          scrollDirection: Axis.horizontal,
+          controller: _pageController,
+          children: [
+            NormalUserSignupView(
+              index: index,
+              pageController: _pageController,
+            ),
+            NormalUserLoginView(
+              index: index,
+              pageController: _pageController,
+            ),
+          ],
+        );
+      },
+      viewModelBuilder: () => AuthNormalUserViewModel(),
     );
   }
 }

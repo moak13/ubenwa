@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:ubenwa/core/shared_widgets/ubenwa_icons.dart';
-import 'package:ubenwa/core/util/app_text_styles.dart';
-import 'package:ubenwa/features/auth/widgets/social_button.dart';
 
 import '../../core/extension/string_extension.dart';
+import '../../core/shared_widgets/ubenwa_icons.dart';
 import '../../core/util/app_colors.dart';
-import '../clinical_user_signup/clinical_user_signup_view.dart';
-import '../normal_user_signup/normal_user_signup_view.dart';
+import '../../core/util/app_text_styles.dart';
+import '../auth_clinical_user/auth_clinical_user_view.dart';
+import '../auth_normal_user/auth_normal_user_view.dart';
 import 'view_model/auth_viewmodel.dart';
 import 'widgets/card_button.dart';
 import 'widgets/card_toggler.dart';
+import 'widgets/social_button.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({Key key}) : super(key: key);
@@ -63,11 +63,19 @@ class AuthView extends StatelessWidget {
                     child: IndexedStack(
                       index: model.currentIndex,
                       children: [
-                        ClinicalUserSignupView(
-                          index: model.currentIndex,
+                        SizedBox(
+                          height: 340,
+                          width: 325,
+                          child: AuthClinicalUserView(
+                            index: model.currentIndex,
+                          ),
                         ),
-                        NormalUserSignupView(
-                          index: model.currentIndex,
+                        SizedBox(
+                          height: 340,
+                          width: 325,
+                          child: AuthNormalUserView(
+                            index: model.currentIndex,
+                          ),
                         ),
                       ],
                     ),

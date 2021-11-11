@@ -3,7 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../../../locator.dart';
 
-class NormalUserLoginViewModel extends BaseViewModel {
+class ClinicalUserLoginViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
 
   showEndOfRoad() {

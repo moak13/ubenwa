@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../core/shared_widgets/app_text_field.dart';
 import '../../core/shared_widgets/auth_large_button.dart';
 import '../../core/util/app_colors.dart';
-import '../../core/shared_widgets/app_text_field.dart';
 import '../../core/util/app_text_styles.dart';
-import 'view_model/normal_user_login_viewmodel.dart';
+import '../../core/util/constants.dart';
+import '../../core/util/helper_functions.dart';
+import 'view_model/clinical_user_phone_viewmodel.dart';
 
-class NormalUserLoginView extends StatelessWidget {
+class ClinicalUserPhoneView extends StatelessWidget {
   final int index;
   final PageController pageController;
-  const NormalUserLoginView({Key key, this.pageController, this.index})
+  const ClinicalUserPhoneView({Key key, this.index, this.pageController})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<NormalUserLoginViewModel>.reactive(
-      viewModelBuilder: () => NormalUserLoginViewModel(),
+    return ViewModelBuilder<ClinicalUserPhoneViewModel>.reactive(
+      viewModelBuilder: () => ClinicalUserPhoneViewModel(),
       builder: (context, model, child) {
         return Container(
           height: 340,
@@ -27,7 +29,7 @@ class NormalUserLoginView extends StatelessWidget {
             top: 24,
           ),
           decoration: BoxDecoration(
-            color: AppColors.beachSand,
+            color: AppColors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(32),
               topRight: Radius.circular(32),
@@ -37,7 +39,7 @@ class NormalUserLoginView extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'Login',
+                'Verification',
                 textAlign: TextAlign.center,
                 style: headerTwo.copyWith(
                   color: AppColors.deepDarkBlue,
@@ -47,10 +49,10 @@ class NormalUserLoginView extends StatelessWidget {
                 height: 20,
               ),
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: Text(
-                  'Email',
-                  textAlign: TextAlign.left,
+                  'Enter your phone #',
+                  textAlign: TextAlign.center,
                   style: onBoardSubTitle.copyWith(
                     color: AppColors.deepDarkBlue,
                   ),
@@ -60,50 +62,24 @@ class NormalUserLoginView extends StatelessWidget {
                 height: 3,
               ),
               AppTextField(
-                hintText: 'email',
+                hintText: 'phone',
                 index: index,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  'Password',
-                  textAlign: TextAlign.left,
-                  style: onBoardSubTitle.copyWith(
-                    color: AppColors.deepDarkBlue,
-                  ),
+                prefix: Text(
+                  HelperFunctions.convertToFlag(Constants.ng),
                 ),
-              ),
-              AppTextField(
-                hintText: 'password',
-                index: index,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
+                keyboardType: TextInputType.number,
               ),
               SizedBox(
-                height: 12,
-              ),
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  'forgot password?',
-                  textAlign: TextAlign.justify,
-                  style: privacyText.copyWith(
-                    color: AppColors.textGray,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 11,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 34, right: 34),
                 child: AuthLargeButton(
                   onTap: () {
-                    model.showEndOfRoad();
+                    pageController.nextPage(
+                      duration: Duration(milliseconds: 400),
+                      curve: Curves.bounceOut,
+                    );
                   },
                 ),
               )

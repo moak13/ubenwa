@@ -5,18 +5,18 @@ import '../../core/shared_widgets/auth_large_button.dart';
 import '../../core/util/app_colors.dart';
 import '../../core/shared_widgets/app_text_field.dart';
 import '../../core/util/app_text_styles.dart';
-import 'view_model/normal_user_login_viewmodel.dart';
+import 'view_model/clinical_user_login_viewmodel.dart';
 
-class NormalUserLoginView extends StatelessWidget {
+class ClinicalUserLoginView extends StatelessWidget {
   final int index;
   final PageController pageController;
-  const NormalUserLoginView({Key key, this.pageController, this.index})
+  const ClinicalUserLoginView({Key key, this.index, this.pageController})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<NormalUserLoginViewModel>.reactive(
-      viewModelBuilder: () => NormalUserLoginViewModel(),
+    return ViewModelBuilder<ClinicalUserLoginViewModel>.reactive(
+      viewModelBuilder: () => ClinicalUserLoginViewModel(),
       builder: (context, model, child) {
         return Container(
           height: 340,
@@ -27,7 +27,7 @@ class NormalUserLoginView extends StatelessWidget {
             top: 24,
           ),
           decoration: BoxDecoration(
-            color: AppColors.beachSand,
+            color: AppColors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(32),
               topRight: Radius.circular(32),
